@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serhat Yuecel Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;500;700&display=swap" rel="stylesheet">
+<style>
+/* Bestehendes CSS */
+body{margin:0;font-family:'Outfit',sans-serif;background:#fff;color:#333;-webkit-font-smoothing:antialiased;}
+.main-header{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.05);}
+.logo{display:flex;flex-direction:column;line-height:1.2;cursor:pointer;}
+.logo-line{
+    margin-top:2px; 
+    text-transform:uppercase;
+}
+.logo-line.bold{
+    font-weight:500;
+    color:#333;
+    font-size:1.5em; 
+}
+.logo-line.thin{
+    font-weight:200;
+    color:#555;
+    letter-spacing:.1em;
+    font-size:1.2em; 
+}
+.logo-line:first-child{margin-top:0;}
+.main-nav ul{display:flex;gap:25px;list-style:none;margin:0;padding:0;}
+.main-nav a{color:#555;text-decoration:none;font-weight:500;font-size:1.05em;transition:color .2s;}
+.main-nav a:hover{color:#007bff;}
+.container{max-width:1200px;margin:0 auto;padding:60px 20px;}
+.work-grid{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;}
+.work-item{width:100%;max-width:500px;text-decoration:none;color:inherit;display:block;transition:transform .25s, box-shadow .25s;cursor:pointer;}
+.work-item:hover{transform:translateY(-6px);box-shadow:0 12px 24px rgba(0,0,0,0.12);}
+.work-field{border-radius:8px;overflow:hidden;border:1px solid #ddd;background:#fff;}
+.image-placeholder{
+    width:100%;
+    height:300px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.5em;
+    font-weight:700;
+    text-transform:uppercase;
+    background:#f8f8f8; 
+    color:#333;
+    
+    background-size: cover;
+    background-position: center;
+    transition: all 0.5s ease;
+
+    text-indent: -9999px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+}
+
+/* --- STYLES FÜR KACHEL-BILDER --- */
+
+.ineed-bg {
+    background-image: url('https://i.imgur.com/o8WvQ7P.jpeg');
+}
+.ainews-bg {
+    background-image: url('https://i.imgur.com/wC3Xl9V.jpeg');
+}
+
+/* ---- Projektansicht CSS ---- */
+.project-view{display:none;padding:40px 20px;}
+.project-title{font-size:2.4em;margin-bottom:20px;font-weight:700;}
+.project-text{line-height:1.6;white-space: pre-line;margin-bottom:30px;}
+.project-subtitle{font-size:1.8em;margin-top:30px;margin-bottom:12px;font-weight:600;}
+
+/* NEUE UNTER-UNTERSCHRIFTEN FÜR RESEARCH */
+.research-sub-subtitle {
+    font-size: 1.4em; /* Etwas kleiner als project-subtitle */
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #444; /* Etwas dezenter */
+}
+/* ENDE NEUE UNTER-UNTERSCHRIFTEN */
+
+
+/* ... (Weiteres CSS für Bilder der Projektansicht) */
+.project-image-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    flex-wrap: wrap; 
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.project-image-item {
+    width: 45%; 
+    text-align: center;
+}
+#project-images-final .project-image-item {
+    width: 18%; 
+    min-width: 120px; 
+}
+/* Spezieller Container für das Bild unter Nutzerbefürfnisse */
+.single-image-full-width {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 40px 0;
+}
+.single-image-full-width img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+/* Ende Spezieller Container */
+
+.project-image-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    display: block; 
+}
+.image-caption {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.4;
+}
+.project-subtitle + .project-image-container { 
+    margin-top: 0; 
+}
+@media (max-width: 768px) {
+    .project-image-item {
+        width: 100%; 
+        margin-bottom: 30px; 
+    }
+}
+</style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="logo" id="logo-home">
+    <span class="logo-line bold">Serhat</span>
+    <span class="logo-line bold">Yuecel</span>
+    <span class="logo-line thin">Design</span>
+  </div>
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#work">Arbeit</a></li>
+      <li><a href="#about">Über Mich</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content">
+  <section class="container" id="work">
+    <div class="work-grid">
+      <div class="work-item" data-project="ineed">
+        <div class="work-field">
+          <div class="image-placeholder ineed-bg"></div> </div>
+      </div>
+      <div class="work-item" data-project="ai_news">
+        <div class="work-field">
+          <div class="image-placeholder ainews-bg"></div> </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="project-view" id="project-view" aria-hidden="true">
+  <div class="container">
+    
+    <div class="project-title" id="project-title"></div>
+    <div class="project-text" id="project-text"></div>
+    
+    <div class="project-subtitle" id="project-research"></div>
+    <div class="project-text" id="research-intro-text"></div>
+    <div class="research-sub-subtitle" id="research-needs"></div>
+    <div class="single-image-full-width" id="research-needs-image-container" style="display:none;">
+        <img id="research-needs-image" alt="Tabelle Nutzerbefürfnisse">
+    </div>
+    <div class="research-sub-subtitle" id="research-behavior"></div>
+    <div class="research-sub-subtitle" id="research-context"></div>
+    <div class="research-sub-subtitle" id="research-emotions"></div>
+    <div class="research-sub-subtitle" id="research-goals"></div>
+    <div class="research-sub-subtitle" id="research-painpoints"></div>
+    <div class="research-sub-subtitle" id="research-demographics"></div>
+    <div class="project-subtitle" id="project-define"></div>
+    <div class="project-subtitle" id="project-ideate"></div>
+
+    <div class="project-subtitle" id="project-sitemap"></div> 
+    
+    <div class="project-subtitle" id="project-user-flow"></div> 
+
+    <div class="project-subtitle" id="project-wireframes"></div>
+    <div class="project-image-container" id="project-images-1">
+        <div class="project-image-item">
+            <img id="project-image-1" alt="Wireframe 1">
+            <p class="image-caption" id="caption-1"></p> 
+        </div>
+        <div class="project-image-item">
+            <img id="project-image-2" alt="Wireframe 2">
+            <p class="image-caption" id="caption-2"></p> 
+        </div>
+    </div>
+    
+    <div class="project-subtitle" id="project-final-design"></div> 
+    <div class="project-image-container" id="project-images-final">
+        <div class="project-image-item">
+            <img id="final-image-1" alt="Final Design 1">
+            <p class="image-caption" id="final-caption-1"></p>
+        </div>
+        <div class="project-image-item">
+            <img id="final-image-2" alt="Final Design 2">
+            <p class="image-caption" id="final-caption-2"></p>
+        </div>
+        <div class="project-image-item">
+            <img id="final-image-3" alt="Final Design 3">
+            <p class="image-caption" id="final-caption-3"></p>
+        </div>
+        <div class="project-image-item">
+            <img id="final-image-4" alt="Final Design 4">
+            <p class="image-caption" id="final-caption-4"></p>
+        </div>
+        <div class="project-image-item">
+            <img id="final-image-5" alt="Final Design 5">
+            <p class="image-caption" id="final-caption-5"></p>
+        </div>
+        <div class="project-image-item"> 
+            <img id="final-image-6" alt="Final Design 6">
+            <p class="image-caption" id="final-caption-6"></p>
+        </div>
+    </div>
+    
+    
+    <div class="project-subtitle" id="ai-news-final-design-title"></div>
+    <div class="project-image-container" id="project-images-ai">
+        <div class="project-image-item">
+            <img id="ai-news-image-1" alt="AI News Final Design">
+            <p class="image-caption" id="ai-news-caption-1"></p>
+        </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  const projectView = document.getElementById('project-view');
+  const projectTitle = document.getElementById('project-title');
+  const projectText = document.getElementById('project-text');
+  
+  // NEUE VARIABLEN FÜR AI NEWS ÜBERSCHRIFTEN
+  const projectResearch = document.getElementById('project-research');
+  const researchIntroText = document.getElementById('research-intro-text');
+  const projectDefine = document.getElementById('project-define');
+  const projectIdeate = document.getElementById('project-ideate');
+  // NEUE VARIABLEN FÜR RESEARCH UNTER-UNTERSCHRIFTEN
+  const researchNeeds = document.getElementById('research-needs');
+  const researchNeedsImageContainer = document.getElementById('research-needs-image-container');
+  const researchNeedsImage = document.getElementById('research-needs-image');
+  const researchBehavior = document.getElementById('research-behavior');
+  const researchContext = document.getElementById('research-context');
+  const researchEmotions = document.getElementById('research-emotions');
+  const researchGoals = document.getElementById('research-goals');
+  const researchPainPoints = document.getElementById('research-painpoints');
+  const researchDemographics = document.getElementById('research-demographics');
+  // ------------------------------------------
+
+  const projectSitemap = document.getElementById('project-sitemap');       
+  const projectUserFlow = document.getElementById('project-user-flow');     
+  const projectWireframes = document.getElementById('project-wireframes');  
+  const projectFinalDesign = document.getElementById('project-final-design'); 
+  
+  // Wireframe-Variablen
+  const projectImage1 = document.getElementById('project-image-1'); 
+  const projectImage2 = document.getElementById('project-image-2'); 
+  const projectImageContainer = document.getElementById('project-images-1'); 
+  const caption1 = document.getElementById('caption-1'); 
+  const caption2 = document.getElementById('caption-2'); 
+
+  // Final Design Variablen
+  const finalImage1 = document.getElementById('final-image-1');
+  const finalImage2 = document.getElementById('final-image-2');
+  const finalImage3 = document.getElementById('final-image-3');
+  const finalImage4 = document.getElementById('final-image-4');
+  const finalImage5 = document.getElementById('final-image-5');
+  const finalImage6 = document.getElementById('final-image-6'); 
+  const finalImageContainer = document.getElementById('project-images-final');
+  const finalCaption1 = document.getElementById('final-caption-1');
+  const finalCaption2 = document.getElementById('final-caption-2');
+  const finalCaption3 = document.getElementById('final-caption-3');
+  const finalCaption4 = document.getElementById('final-caption-4');
+  const finalCaption5 = document.getElementById('final-caption-5');
+  const finalCaption6 = document.getElementById('final-caption-6'); 
+
+  // AI News Variablen
+  const aiNewsFinalDesignTitle = document.getElementById('ai-news-final-design-title');
+  const aiNewsImage1 = document.getElementById('ai-news-image-1');
+  const aiNewsImageContainer = document.getElementById('project-images-ai');
+  const aiNewsCaption1 = document.getElementById('ai-news-caption-1');
+
+
+  const main = document.getElementById('main-content');
+  const logoHome = document.getElementById('logo-home');
+
+  const PROJECTS = {
+    ineed: {
+      title:"Konzept", 
+      text:`Dies ist ein sehr persönliches Projekt von mir und befindet sich
+seit Sommer 2025 in der Entwicklung. Es ist eine Marktplatz-App mit der Hauptidee, jegliche Art von Dingen aus der eigenen Community zu leihen/mieten. Es ähnelt mehr oder weniger Diensten wie Airbnb oder Uber, bietet aber hauptsächlich Alltagsgüter und Bedarfsgegenstände für jede Art von Nutzer der App an. Die Ziele sind, die enorme Menge meist einmaliger Bestellungen zu reduzieren und Geld zu sparen, den Gemeinschaftssinn zu stärken und die Nachhaltigkeit zu erhöhen.
+
+Die Grundidee ist einfach. Kaufe weniger, leihe mehr.
+
+Wie ich auf die Idee kam:
+Als Künstler, der kaum mit Sprühdosen arbeitet, brauchte ich einmal für eine Arbeit letzte Handgriffe, die nur mit Graffiti-Ausrüstung möglich gewesen wären. Ich fragte mich, warum sollte ich eine Sprühdose für 5 oder 7 Euro kaufen und sie höchstwahrscheinlich nie wieder benutzen, wenn ich sie einfach von jemandem leihen und dann zurückgeben könnte?
+
+Das Problem ist, ich kannte niemanden, der die spezielle Dose, die ich brauchte, besaß oder überhaupt Sprühdosen hatte. Also dachte ich mir, dass jemand in meiner Stadt/Community definitiv etwas zu Hause hat, womit er mir aushelfen könnte, aber ich brauchte einen Weg, so etwas wie ein lokales Portal, um meinen Bedarf zu platzieren und zu bewerben, damit Leute in meiner Umgebung mein Problem sehen und mir möglicherweise helfen könnten.
+
+Und so kam ich auf die Idee, einfach selbst einen Dienst zu schaffen, der dieses Problem löst, mit dem Menschen täglich konfrontiert sind, und ihn in Form einer mobilen App umzusetzen. Mit dieser App können Nutzer ihre eigenen Deals über Chats aushandeln und entscheiden, wie die Abholung und mögliche Bezahlung ablaufen soll. Insgesamt können die Leute schneller, effizienter und viel günstiger oder komplett kostenlos an ihre notwendigen Gegenstände oder Bedürfnisse gelangen.`,
+      
+      research: "", 
+      research_intro_text: "", 
+      research_needs: "", 
+      research_needs_image: "",
+      research_behavior: "", 
+      research_context: "", 
+      research_emotions: "", 
+      research_goals: "", 
+      research_painpoints: "", 
+      research_demographics: "", 
+      define: "", 
+      ideate: "", 
+      sitemap: "Sitemap",        
+      userFlow: "User Flow",      
+      wireframes: "Wireframes",   
+      
+      image1: "https://i.imgur.com/ZQxEuMv.jpeg", 
+      image2: "https://i.imgur.com/aCNAa0H.jpeg", 
+      caption1: "Füge hier die Erklärung für das erste Wireframe ein.", 
+      caption2: "Füge hier die Erklärung für das zweite Wireframe ein.", 
+      
+      finalDesign: "Final Design", 
+      finalImage1: "https://i.imgur.com/tHxe4Kp.jpeg", 
+      finalImage2: "https://i.imgur.com/qSvKoGc.jpeg", 
+      finalImage3: "https://i.imgur.com/xjQLcFn.jpeg", 
+      finalImage4: "https://i.imgur.com/6tNqdLQ.jpeg", 
+      finalImage5: "https://i.imgur.com/0oFDylg.jpeg",
+      finalImage6: "https://i.imgur.com/o8WvQ7P.jpeg", 
+      finalCaption1: "Füge hier die Erklärung für das erste Final Design ein.",
+      finalCaption2: "Füge hier die Erklärung für das zweite Final Design ein.",
+      finalCaption3: "Füge hier die Erklärung für das dritte Final Design ein.",
+      finalCaption4: "Füge hier die Erklärung für das vierte Final Design ein.",
+      finalCaption5: "Füge hier die Erklärung für das fünfte Final Design ein.",
+      finalCaption6: "Füge hier die Erklärung für das sechste Final Design ein.", 
+
+      aiNewsFinalDesign: "", 
+      aiNewsImage1: "",      
+      aiNewsCaption1: "",    
+    },
+    ai_news: {
+      title:"Konzept", 
+      text:`Das Ziel mit AI News war es, ein KI-gesteuertes Nachrichtenportal zu schaffen, das als All-in-1-Plattform dient und alles abdeckt, was bei den größten Nachrichtenagenturen passiert. Die Aufgabe der KI ist es, nach vielen Berichten zu einem aktuellen Thema/Bericht zu suchen und diese zu filtern. Basierend darauf mischt sie alle diese Berichte und erstellt eine vollständig abgedeckte Version des spezifischen Berichts. Mit der App wird sichergestellt, dass der Leser mit allen wichtigen Fakten und Informationen versorgt wird und mit nur **einem einzigen Artikel** zufrieden sein kann, anstatt traditionelle Nachrichtenportale durchzugehen und zu anderen wechseln zu müssen, weil er das Gefühl hat, nicht alle vollständigen Informationen zu einem bestimmten Thema erhalten zu haben.
+
+Dies spart Zeit für den Nutzer, versorgt ihn mit allen wichtigen Hauptpunkten und ist insgesamt ein effizienterer Weg, ihn auf dem Laufenden zu halten.`,
+      
+      // NEUE INHALTE HIER
+      research: "Research", 
+      research_intro_text: "Es erfolgte eine allgemeine Recherche mithilfe vom KI LLM Perplexity und ich ging auch folgende Kriterien ein und fasste abschließend die Infos zusammen.",
+      research_needs: "Nutzerbefürfnisse",
+      research_needs_image: "https://imgur.com/0D87vJC", // ***AKTUALISIERT AUF DIE NEUE URL***
+      research_behavior: "Nutzerverhalten",
+      research_context: "Kontext & Umfeld",
+      research_emotions: "Emotionen",
+      research_goals: "Ziele der Nutzer",
+      research_painpoints: "Pain Points",
+      research_demographics: "Demographisches",
+      define: "Define",
+      ideate: "Ideate",
+      sitemap: "Sitemap",
+      userFlow: "User Flow",
+      wireframes: "Wireframes",
+      finalDesign: "Final Design", 
+
+      image1: "", 
+      image2: "", 
+      caption1: "", 
+      caption2: "", 
+      
+      finalImage1: "", 
+      finalImage2: "", 
+      finalImage3: "", 
+      finalImage4: "", 
+      finalImage5: "", 
+      finalImage6: "", 
+      finalCaption1: "",
+      finalCaption2: "",
+      finalCaption3: "",
+      finalCaption4: "",
+      finalCaption5: "",
+      finalCaption6: "",
+
+      aiNewsFinalDesign: "", 
+      aiNewsImage1: "",      
+      aiNewsCaption1: "",    
+    }
+  };
+
+  function showProject(slug){
+    const data = PROJECTS[slug];
+    if(!data) return;
+    
+    // Alle Textfelder initial leeren, um den Inhalt der vorherigen Projekte zu entfernen
+    projectTitle.textContent = ''; 
+    projectText.textContent = '';
+    
+    projectResearch.textContent = '';
+    researchIntroText.textContent = '';
+    projectDefine.textContent = '';
+    projectIdeate.textContent = '';
+
+    // LEEREN DER UNTER-UNTERSCHRIFTEN
+    researchNeeds.textContent = '';
+    researchNeedsImageContainer.style.display = 'none';
+    researchNeedsImage.src = '';
+    researchBehavior.textContent = '';
+    researchContext.textContent = '';
+    researchEmotions.textContent = '';
+    researchGoals.textContent = '';
+    researchPainPoints.textContent = '';
+    researchDemographics.textContent = '';
+    // ENDE LEEREN DER UNTER-UNTERSCHRIFTEN
+
+    projectSitemap.textContent = '';
+    projectUserFlow.textContent = '';
+    projectWireframes.textContent = '';
+    caption1.textContent = '';
+    caption2.textContent = '';
+    projectFinalDesign.textContent = '';
+    finalCaption1.textContent = '';
+    finalCaption2.textContent = '';
+    finalCaption3.textContent = '';
+    finalCaption4.textContent = '';
+    finalCaption5.textContent = '';
+    finalCaption6.textContent = ''; 
+    aiNewsFinalDesignTitle.textContent = '';
+    aiNewsCaption1.textContent = '';
+
+    // Bilder-Container initial ausblenden
+    projectImageContainer.style.display = 'none';
+    finalImageContainer.style.display = 'none';
+    aiNewsImageContainer.style.display = 'none'; 
+
+
+    // Projekte-spezifische Inhalte füllen
+    projectTitle.textContent = data.title;
+    projectText.textContent = data.text;
+    
+    // Research, Define, Ideate
+    projectResearch.textContent = data.research || '';
+    researchIntroText.textContent = data.research_intro_text || '';
+    
+    // BEFÜLLEN DER UNTER-UNTERSCHRIFTEN
+    researchNeeds.textContent = data.research_needs || '';
+    if (data.research_needs_image) {
+        researchNeedsImage.src = data.research_needs_image; // Bild-URL setzen
+        researchNeedsImageContainer.style.display = 'flex'; // Bild-Container anzeigen
+    }
+    researchBehavior.textContent = data.research_behavior || '';
+    researchContext.textContent = data.research_context || '';
+    researchEmotions.textContent = data.research_emotions || '';
+    researchGoals.textContent = data.research_goals || '';
+    researchPainPoints.textContent = data.research_painpoints || '';
+    researchDemographics.textContent = data.research_demographics || '';
+    // ENDE BEFÜLLEN DER UNTER-UNTERSCHRIFTEN
+
+    projectDefine.textContent = data.define || '';
+    projectIdeate.textContent = data.ideate || '';
+
+    // Sitemap und User Flow
+    projectSitemap.textContent = data.sitemap;            
+    projectUserFlow.textContent = data.userFlow;          
+    
+    // Wireframes
+    projectWireframes.textContent = data.wireframes;      
+    if (data.image1 && data.image2) {
+        projectImage1.src = data.image1;
+        projectImage2.src = data.image2;
+        projectImageContainer.style.display = 'flex'; 
+        caption1.textContent = data.caption1; 
+        caption2.textContent = data.caption2; 
+    } else {
+        // Falls AI News keine Wireframes hat, sicherstellen, dass diese Sektion leer bleibt
+        projectImage1.src = '';
+        projectImage2.src = '';
+    }
+    
+    // Final Design
+    projectFinalDesign.textContent = data.finalDesign;    
+    if (data.finalImage1) { 
+        finalImage1.src = data.finalImage1;
+        finalImage2.src = data.finalImage2 || ''; 
+        finalImage3.src = data.finalImage3 || '';
+        finalImage4.src = data.finalImage4 || '';
+        finalImage5.src = data.finalImage5 || '';
+        finalImage6.src = data.finalImage6 || ''; 
+        finalImageContainer.style.display = 'flex';
+        finalCaption1.textContent = data.finalCaption1;
+        finalCaption2.textContent = data.finalCaption2;
+        finalCaption3.textContent = data.finalCaption3;
+        finalCaption4.textContent = data.finalCaption4;
+        finalCaption5.textContent = data.finalCaption5;
+        finalCaption6.textContent = data.finalCaption6; 
+    }
+
+    // Final Design für AI News (jetzt leer)
+    aiNewsFinalDesignTitle.textContent = data.aiNewsFinalDesign;
+    if (data.aiNewsImage1) { 
+        aiNewsImage1.src = data.aiNewsImage1;
+        aiNewsImageContainer.style.display = 'flex';
+        aiNewsCaption1.textContent = data.aiNewsCaption1;
+    }
+
+
+    // Ansicht wechseln
+    main.style.display='none';
+    projectView.style.display='block';
+    window.scrollTo({top:0});
+  }
+
+  function hideProject(){
+    projectView.style.display='none';
+    main.style.display='block';
+    window.scrollTo({top:0});
+  }
+
+  document.querySelectorAll('.work-item').forEach(item=>{
+    item.addEventListener('click',()=> showProject(item.dataset.project));
+  });
+
+  logoHome.addEventListener('click', hideProject);
+
+})();
+</script>
+
+</body>
+</html>
