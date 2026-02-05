@@ -1,11 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import ProjectSlider from './components/ProjectSlider';
 import ProjectDetail from './components/ProjectDetail';
 import OtherDesigns from './components/OtherDesigns';
 import Contact from './components/Contact';
-import GeminiAssistant from './components/GeminiAssistant';
 import { Page, ProjectData } from './types';
 import { PROJECTS } from './constants';
 
@@ -16,10 +14,16 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '');
-      if (hash === 'projects') setCurrentPage('projects');
-      else if (hash === 'andere-projekte') setCurrentPage('other-projects');
-      else if (hash === 'contact') setCurrentPage('contact');
-      else if (PROJECTS[hash]) {
+      if (hash === 'projects') {
+        setCurrentPage('projects');
+        setSelectedProject(null);
+      } else if (hash === 'andere-projekte') {
+        setCurrentPage('other-projects');
+        setSelectedProject(null);
+      } else if (hash === 'contact') {
+        setCurrentPage('contact');
+        setSelectedProject(null);
+      } else if (PROJECTS[hash]) {
         setSelectedProject(PROJECTS[hash]);
         setCurrentPage('project-detail');
       } else {
@@ -53,20 +57,28 @@ const App: React.FC = () => {
       
       <main className="pt-24 px-4 sm:px-10 pb-20">
         {currentPage === 'home' && (
-          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-              Kreativität trifft auf <span className="text-purple-400">Technologie</span>.
+          <div className="flex flex-col items-center justify-center min-h-[70vh] text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
+              Kreativität trifft auf <span className="animate-ai-gradient">Technologie</span>.
             </h1>
-            <p className="max-w-2xl text-lg text-gray-400 leading-relaxed">
+            <p className="text-xl text-gray-400 leading-relaxed mb-12">
               Ich bin Serhat Yücel, ein UX/UI Designer mit Fokus auf intuitive digitale Erlebnisse. 
               Entdecke meine Projekte und Visionen für die Zukunft des Designs.
             </p>
-            <button 
-              onClick={() => navigate('projects')}
-              className="mt-10 px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95"
-            >
-              Projekte ansehen
-            </button>
+            <div className="flex flex-wrap justify-center gap-6">
+              <button 
+                onClick={() => navigate('projects')}
+                className="px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-white/5"
+              >
+                Projekte ansehen
+              </button>
+              <button 
+                onClick={() => navigate('contact')}
+                className="px-10 py-4 bg-transparent border-2 border-white/20 text-white font-bold rounded-full hover:bg-white/10 transition-all"
+              >
+                Kontakt aufnehmen
+              </button>
+            </div>
           </div>
         )}
 
@@ -91,8 +103,6 @@ const App: React.FC = () => {
           <Contact />
         )}
       </main>
-
-      <GeminiAssistant currentProject={selectedProject} />
     </div>
   );
 };
