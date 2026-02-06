@@ -13,6 +13,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .aktuelles-title {
@@ -83,6 +84,9 @@ html, body {
   margin: 0 auto;
   padding: 40px 20px;
 }
+/* 1. Landing page preview moved up */
+section#work { padding-top: 15px; }
+
 
 .projects-slider { position: relative; width: 100%; height: min(70vh, 640px); margin-top: 16px; overflow: hidden; border-radius: 24px; }
 .projects-slider-track { position: relative; width: 100%; height: 100%; }
@@ -274,24 +278,44 @@ html, body {
   color: #ccc;
 }
 
-/* Ideate Slideshow Styles */
+/* 4. Ideate Slideshow Styles */
+.ideate-slider-container { position: relative; margin: 20px 0; }
 .ideate-slider {
   display: flex;
-  gap: 20px;
   overflow-x: auto;
-  padding-bottom: 20px;
-  scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
   scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
-.ideate-slider::-webkit-scrollbar { height: 6px; }
-.ideate-slider::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+.ideate-slider::-webkit-scrollbar { display: none; /* Chrome, Safari, Opera */ }
 .ideate-slider .project-detail-img {
-  flex: 0 0 calc(50% - 10px);
-  min-width: 300px;
-  scroll-snap-align: start;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
   margin-bottom: 0;
 }
+.ideate-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(20, 20, 20, 0.7);
+  color: white;
+  border: 1px solid #444;
+  backdrop-filter: blur(5px);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ideate-nav-btn:hover { background: rgba(0,0,0,0.8); transform: translateY(-50%) scale(1.05); }
+.ideate-nav-btn.prev { left: 16px; }
+.ideate-nav-btn.next { right: 16px; }
 
 @media (max-width: 768px) {
   .persona-layout { grid-template-columns: 1fr; gap: 20px; }
@@ -335,14 +359,35 @@ html, body {
   margin-top: 40px;
 }
 
-.persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
-.persona-grid dt { color: #666; font-size: 0.75em; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
-.persona-grid dd { margin: 0 0 16px 0; font-weight: 600; color: #fff; }
-
 .designs-bg-animated-wrapper { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 #designs-bg-animated { width: 100%; height: 100%; filter: blur(60px) brightness(0.6); }
 
 .project-logo { max-width: 180px; margin-bottom: 24px; display: block; }
+
+/* 8. Styles for "Weitere Designs" */
+.other-designs-layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: flex-start; }
+.categories-nav ul { list-style: none; padding: 0; margin: 0; position: sticky; top: 20px; }
+.category-btn, .subcategory-btn { background: none; border: none; color: #888; text-align: left; width: 100%; padding: 12px 16px; font-size: 1em; cursor: pointer; transition: color 0.2s, background-color 0.2s; border-radius: 8px; font-weight: 500; }
+.category-btn:hover, .subcategory-btn:hover { color: #fff; background-color: #1a1a1a; }
+.category-btn.active { color: #fff; font-weight: 700; background-color: #222; }
+.subcategory-btn { font-size: 0.9em; padding-left: 24px; }
+.subcategory-btn.active { color: #fff; background-color: #2a2a2a; }
+.subcategory-list { list-style: none; padding-left: 10px; margin-top: 4px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+.subcategory-list.visible { max-height: 200px; }
+.gallery-content { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.gallery-item img, .gallery-item video { width: 100%; height: auto; display: block; border-radius: 12px; object-fit: cover; }
+.gallery-item.pdf-item a, .gallery-item.link-item a {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    height: 200px; background-color: #0a0a0a; border: 1px solid #222; border-radius: 12px;
+    text-decoration: none; color: #eee; padding: 20px; transition: border-color 0.2s, background-color 0.2s;
+}
+.gallery-item.pdf-item a:hover, .gallery-item.link-item a:hover { border-color: #555; background-color: #111; }
+.gallery-item-filename { font-weight: 600; margin-top: 12px; font-size: 0.9em; word-break: break-all; }
+@media (max-width: 860px) {
+  .other-designs-layout { grid-template-columns: 1fr; }
+  .categories-nav ul { position: static; margin-bottom: 30px; }
+}
+
 
 /* Lightbox Modal */
 #lightbox-modal {
@@ -399,9 +444,9 @@ html, body {
             </div>
           </div>
         </div>
-        <!-- Slide: AI News -->
+        <!-- 2. Slide: AI News -->
         <div class="project-slide" data-project="ai_news">
-          <div class="slide-inner" style="background-image:url('https://i.imgur.com/Td8f1sW.jpeg'); background-size:cover; background-position:center;">
+          <div class="slide-inner" style="background-image:url('https://i.imgur.com/NmxcDk9.jpeg'); background-size:contain; background-position:center; background-repeat: no-repeat;">
             <div class="slide-content">
                 <div class="slide-title">AI News</div>
                 <div class="slide-subtitle">KI-gesteuerte Nachrichtenaggregation für maximale Transparenz.</div>
@@ -447,13 +492,7 @@ html, body {
   </section>
 
   <!-- Andere Designs -->
-  <section class="container" id="other-projects" style="display:none; position: relative;">
-    <div class="designs-bg-animated-wrapper"><canvas id="designs-bg-animated"></canvas></div>
-    <div style="padding: 100px 0; text-align: center;">
-        <h2 class="aktuelles-title">Andere Designprojekte</h2>
-        <p class="aktuelles-sub">coming soon</p>
-    </div>
-  </section>
+  <section class="container" id="other-projects" style="display:none;"></section>
 
   <!-- Kontakt -->
   <section class="container" id="contact" style="display:none;">
@@ -471,11 +510,6 @@ html, body {
       <h1 id="project-main-title" class="project-main-title"></h1>
       <div id="project-status-note" class="project-status-note"></div>
       <div id="project-text" class="project-text"></div>
-      
-      <div id="persona-area" style="display:none;">
-          <h3 class="aktuelles-title" style="text-align: left; margin-top: 60px;">User Persona</h3>
-          <div id="persona-text" class="persona-card"></div>
-      </div>
   </div>
   <div style="margin-top: 80px; text-align: center;">
       <button onclick="window.location.reload()" style="background: none; border: 1px solid #333; color: #888; padding: 12px 24px; border-radius: 40px; cursor: pointer; font-weight: 600;">Zurück zur Übersicht</button>
@@ -522,59 +556,18 @@ html, body {
       status: '<h3 class="project-section-title" style="margin-top: 10px; margin-bottom: 24px;">Konzept</h3>',
       text: `
       <p class="project-text">Das Ziel mit AI News war es, ein KI-gesteuertes Nachrichtenportal zu schaffen, das als All-in-1-Plattform dient und alles abdeckt, was bei den größten Nachrichtenagenturen passiert.</p>
-      
       <p class="project-text">Die Aufgabe der KI ist es, nach vielen Berichten zu einem aktuellen Thema zu suchen und diese zu filtern. Basierend darauf verarbeitet sie alle diese Berichte und erstellt eine vollständig abgedeckte Version des spezifischen Artikels. Der Mehrwert der App: Es wird sichergestellt, dass der Leser mit allen wichtigen Fakten und Informationen versorgt wird.</p>
       
-      <p class="project-text">Der Nutzer kann mit nur einem einzigen Artikel zufrieden sein, anstatt traditionelle Nachrichtenportale durchzugehen und zu anderen wechseln zu müssen, weil er das Gefühl hat, nicht alle vollständigen Informationen zu einem bestimmten Thema erhalten zu haben. Dies spart Zeit für den Nutzer, versorgt ihn mit allen wichtigen Hauptpunkten und ist insgesamt ein effizienterer Weg, ihn auf dem Laufenden zu halten.</p>
-
       <h3 class="project-section-title">Research</h3>
       <p class="project-text">Es erfolgte eine allgemeine Recherche mithilfe vom KI LLM Perplexity und ich ging auch folgende Kriterien ein und fasste abschließend die Infos zusammen.</p>
-      
       <div class="research-accordion">
-        <details>
-          <summary>Nutzerbedürfnisse</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/TQ84obf.png" class="project-detail-img lightbox-trigger" alt="Nutzerbedürfnisse">
-          </div>
-        </details>
-        <details>
-          <summary>Nutzerverhalten</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/flWbDOO.png" class="project-detail-img lightbox-trigger" alt="Nutzerverhalten">
-          </div>
-        </details>
-        <details>
-          <summary>Kontext & Umfeld</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/pBYTJ0b.png" class="project-detail-img lightbox-trigger" alt="Kontext & Umfeld 1">
-            <img src="https://i.imgur.com/aTdCwyK.png" class="project-detail-img lightbox-trigger" alt="Kontext & Umfeld 2">
-          </div>
-        </details>
-        <details>
-          <summary>Emotionen</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/RQaXm7d.png" class="project-detail-img lightbox-trigger" alt="Emotionen 1">
-            <img src="https://i.imgur.com/thKsChz.png" class="project-detail-img lightbox-trigger" alt="Emotionen 2">
-          </div>
-        </details>
-        <details>
-          <summary>Ziele der Nutzer</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/tg675Yh.png" class="project-detail-img lightbox-trigger" alt="Ziele der Nutzer">
-          </div>
-        </details>
-        <details>
-          <summary>Pain Points</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/8D86D77.png" class="project-detail-img lightbox-trigger" alt="Pain Points">
-          </div>
-        </details>
-        <details>
-          <summary>Demographisches</summary>
-          <div class="details-content">
-            <img src="https://i.imgur.com/btQ3KgP.png" class="project-detail-img lightbox-trigger" alt="Demographisches">
-          </div>
-        </details>
+        <details><summary>Nutzerbedürfnisse</summary><div class="details-content"><img src="https://i.imgur.com/TQ84obf.png" class="project-detail-img lightbox-trigger" alt="Nutzerbedürfnisse"></div></details>
+        <details><summary>Nutzerverhalten</summary><div class="details-content"><img src="https://i.imgur.com/flWbDOO.png" class="project-detail-img lightbox-trigger" alt="Nutzerverhalten"></div></details>
+        <details><summary>Kontext & Umfeld</summary><div class="details-content"><img src="https://i.imgur.com/pBYTJ0b.png" class="project-detail-img lightbox-trigger" alt="Kontext & Umfeld 1"><img src="https://i.imgur.com/aTdCwyK.png" class="project-detail-img lightbox-trigger" alt="Kontext & Umfeld 2"></div></details>
+        <details><summary>Emotionen</summary><div class="details-content"><img src="https://i.imgur.com/RQaXm7d.png" class="project-detail-img lightbox-trigger" alt="Emotionen 1"><img src="https://i.imgur.com/thKsChz.png" class="project-detail-img lightbox-trigger" alt="Emotionen 2"></div></details>
+        <details><summary>Ziele der Nutzer</summary><div class="details-content"><img src="https://i.imgur.com/tg675Yh.png" class="project-detail-img lightbox-trigger" alt="Ziele der Nutzer"></div></details>
+        <details><summary>Pain Points</summary><div class="details-content"><img src="https://i.imgur.com/8D86D77.png" class="project-detail-img lightbox-trigger" alt="Pain Points"></div></details>
+        <details><summary>Demographisches</summary><div class="details-content"><img src="https://i.imgur.com/btQ3KgP.png" class="project-detail-img lightbox-trigger" alt="Demographisches"></div></details>
       </div>
 
       <h3 class="project-section-title">Define</h3>
@@ -582,61 +575,37 @@ html, body {
         <div style="display: flex; align-items: center; gap: 24px; margin-bottom: 24px;">
           <img src="https://i.imgur.com/fRJVNqQ.jpeg" alt="Ben Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #333;">
           <div>
-            <div class="persona-header-top">Define</div>
-            <div class="persona-sub-header">User Persona</div>
+             <!-- 3. Persona Title changed -->
+            <div class="persona-header-top" style="color: #fff; font-size: 2.5em;">User Persona</div>
           </div>
         </div>
         <div class="persona-layout">
-          <div class="persona-col">
-            <h4>Name</h4>
-            <p>Ben</p>
-            <h4>Alter</h4>
-            <p>20-30</p>
-            <h4>Geschlecht</h4>
-            <p>männlich</p>
-            <h4>Beruf</h4>
-            <p>Künstler</p>
-            <h4>Technikaffinität</h4>
-            <p>Sehr hoch — nutzt Smartphone & Tablet täglich</p>
-            <h4>Nutzungsverhalten</h4>
-            <p>Liest morgens & abends Nachrichten; bevorzugt kurze Artikel & Push</p>
-            <h4>Nutzungsart</h4>
-            <p>News-snacking, Multiplattform, personalisierte Feeds</p>
-          </div>
-          <div class="persona-col">
-            <h4>Ziele</h4>
-            <p>Informiert bleiben; Effizienz; Orientierung & Einordnung; relevante Nachrichten filtern</p>
-            <h4>Pain Points</h4>
-            <p>Vertrauensverlust / Glaubwürdigkeitsprobleme; Informationsflut</p>
-            <h4>Umfeld</h4>
-            <p>Kleiner Freundeskreis; sehr beschäftigt (Arbeit/Studium/Interessen)</p>
-            <h4>Interessen</h4>
-            <p>Trends, Kunst/Design, Menschen, Breaking News (Welt), Wirtschaftspolitik</p>
-            <h4>Werte</h4>
-            <p>Transparenz, Glaubwürdigkeit, Orientierung</p>
-            <h4>Kanäle</h4>
-            <p>Website/Apps, YouTube, Social Media</p>
-          </div>
+          <div class="persona-col"><h4>Name</h4><p>Ben</p><h4>Alter</h4><p>20-30</p><h4>Geschlecht</h4><p>männlich</p><h4>Beruf</h4><p>Künstler</p><h4>Technikaffinität</h4><p>Sehr hoch — nutzt Smartphone & Tablet täglich</p><h4>Nutzungsverhalten</h4><p>Liest morgens & abends Nachrichten; bevorzugt kurze Artikel & Push</p><h4>Nutzungsart</h4><p>News-snacking, Multiplattform, personalisierte Feeds</p></div>
+          <div class="persona-col"><h4>Ziele</h4><p>Informiert bleiben; Effizienz; Orientierung & Einordnung; relevante Nachrichten filtern</p><h4>Pain Points</h4><p>Vertrauensverlust / Glaubwürdigkeitsprobleme; Informationsflut</p><h4>Umfeld</h4><p>Kleiner Freundeskreis; sehr beschäftigt (Arbeit/Studium/Interessen)</p><h4>Interessen</h4><p>Trends, Kunst/Design, Menschen, Breaking News (Welt), Wirtschaftspolitik</p><h4>Werte</h4><p>Transparenz, Glaubwürdigkeit, Orientierung</p><h4>Kanäle</h4><p>Website/Apps, YouTube, Social Media</p></div>
         </div>
-        <div class="persona-bio-section">
-          <h4>Bio</h4>
-          <p>Ben ist ein Künstler aus Deutschland und schätzt es sehr, auf dem neuesten Stand der Dinge zu sein — sowohl aus persönlichem Interesse als auch für seine Karriere. Er kämpft oft mit Informationsüberflutung und Auswahlstress. Vertrauensprobleme bei Nachrichtenquellen verunsichern ihn und erschweren die Entscheidung, welche Plattformen er regelmäßig nutzt.</p>
-        </div>
+        <div class="persona-bio-section"><h4>Bio</h4><p>Ben ist ein Künstler aus Deutschland und schätzt es sehr, auf dem neuesten Stand der Dinge zu sein — sowohl aus persönlichem Interesse als auch für seine Karriere. Er kämpft oft mit Informationsüberflutung und Auswahlstress. Vertrauensprobleme bei Nachrichtenquellen verunsichern ihn und erschweren die Entscheidung, welche Plattformen er regelmäßig nutzt.</p></div>
       </div>
 
+      <!-- 4. Ideate slider added -->
       <h3 class="project-section-title">Ideate</h3>
-      <div class="ideate-slider">
-        <img src="https://i.imgur.com/IMAGE1.png" class="project-detail-img lightbox-trigger" alt="Ideate Phase 1" onerror="this.src='https://via.placeholder.com/800x600?text=Ideate+Bild+1+folgt'">
-        <img src="https://i.imgur.com/IMAGE2.png" class="project-detail-img lightbox-trigger" alt="Ideate Phase 2" onerror="this.src='https://via.placeholder.com/800x600?text=Ideate+Bild+2+folgt'">
-        <img src="https://i.imgur.com/IMAGE3.png" class="project-detail-img lightbox-trigger" alt="Ideate Phase 3" onerror="this.src='https://via.placeholder.com/800x600?text=Ideate+Bild+3+folgt'">
+      <div class="ideate-slider-container">
+        <div class="ideate-slider">
+            <img src="https://i.imgur.com/jGklzFO.png" class="project-detail-img" alt="Ideate Phase 1">
+            <img src="https://i.imgur.com/IfCR0jl.png" class="project-detail-img" alt="Ideate Phase 2">
+            <img src="https://i.imgur.com/HDWd38l.png" class="project-detail-img" alt="Ideate Phase 3">
+            <img src="https://i.imgur.com/F36nhE9.png" class="project-detail-img" alt="Ideate Phase 4">
+        </div>
+        <button class="ideate-nav-btn prev">‹</button>
+        <button class="ideate-nav-btn next">›</button>
       </div>
-
+      
       <h3 class="project-section-title">Sitemap</h3>
       <img src="https://i.imgur.com/LgiRDB8.png" class="project-detail-img lightbox-trigger" alt="AI News Sitemap" onerror="this.src='https://via.placeholder.com/1200x600?text=Sitemap+Grafik'">
       
       <h3 class="project-section-title">User Flow</h3>
       <img src="https://i.imgur.com/QoJqjw6.png" class="project-detail-img lightbox-trigger" alt="AI News User Flow">
       
+      <!-- 5. Wireframes updated -->
       <h3 class="project-section-title">Wireframes</h3>
       <div class="project-img-grid">
         <div>
@@ -647,18 +616,75 @@ html, body {
           <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">Artikelansicht (Desktop)</p>
           <img src="https://i.imgur.com/bsE8c53.jpeg" class="project-detail-img lightbox-trigger" alt="Wireframe Artikelansicht Desktop">
         </div>
-      </div>
-      <div style="max-width: 400px; margin-top: 20px;">
+        <div>
           <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">Artikelansicht (Mobile)</p>
           <img src="https://i.imgur.com/n61QET8.jpeg" class="project-detail-img lightbox-trigger" alt="Wireframe Artikelansicht Mobile">
-      </div>`
+        </div>
+        <div>
+          <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">Startseite (Mobile)</p>
+          <img src="https://i.imgur.com/rpYnJ9V.png" class="project-detail-img lightbox-trigger" alt="Wireframe Startseite Mobile">
+        </div>
+      </div>
+
+      <!-- 6. End product section added -->
+      <h3 class="project-section-title">Endprodukt</h3>
+      <p style="color: #888; font-size: 1em; margin-bottom: 12px;">(für iOS)</p>
+      <div class="project-img-grid-5">
+          <img src="https://i.imgur.com/XdMEBgw.png" class="project-detail-img lightbox-trigger" alt="Endprodukt iOS 1">
+          <img src="https://i.imgur.com/JpWTsnS.png" class="project-detail-img lightbox-trigger" alt="Endprodukt iOS 2">
+          <img src="https://i.imgur.com/YMpGXyW.png" class="project-detail-img lightbox-trigger" alt="Endprodukt iOS 3">
+          <img src="https://i.imgur.com/1VdjNyf.png" class="project-detail-img lightbox-trigger" alt="Endprodukt iOS 4">
+          <img src="https://i.imgur.com/akSffog.png" class="project-detail-img lightbox-trigger" alt="Endprodukt iOS 5">
+      </div>
+      <p style="color: #888; font-size: 1em; margin-bottom: 12px; margin-top: 32px;">Webbasiert</p>
+      <a href="https://s3roart-netizen.github.io/AINEWS/#/wissenschaft" target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: underline; font-size: 1.1em;">Live-Website besuchen</a>
+      `
     },
+    // 7. ArtAtlas updated
     artatlas: {
       mainTitle: "ArtAtlas",
-      status: '<span class="live-status">In Planung</span>',
-      text: `Ein digitales Archiv für Kunstschaffende weltweit. Fokus auf Kuration und visuelle Qualität.`
+      text: `<p class="project-text">Ein digitales Archiv für Kunstschaffende weltweit. Fokus auf Kuration und visuelle Qualität.</p>
+      <div class="project-img-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <img src="https://i.imgur.com/6KSR9YU.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 1">
+        <img src="https://i.imgur.com/7SjAlPi.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 2">
+        <img src="https://i.imgur.com/YhdB2Ip.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 3">
+      </div>`
     }
   };
+
+  // 8. Data for "Weitere Designs"
+  const OTHER_DESIGNS_DATA = {
+      illustration: {
+          title: "Illustration",
+          subcategories: {
+              digital: {
+                  title: "Digitales Produktdesign",
+                  items: ['https://i.imgur.com/CvWASRg.jpeg', 'https://i.imgur.com/DEONClQ.jpeg', 'https://i.imgur.com/YEsMdF1.jpeg', 'https://i.imgur.com/SX4ZAz8.jpeg', 'https://i.imgur.com/eNzNJjh.jpeg', 'https://i.imgur.com/sbdfnrF.jpeg', 'https://i.imgur.com/pzhXIPj.jpeg', 'https://i.imgur.com/URXG0Jc.jpeg', 'https://i.imgur.com/QHsK102.jpeg', 'https://i.imgur.com/5bQXCdu.png']
+              },
+              drawings: {
+                  title: "Zeichnungen",
+                  items: ['https://i.imgur.com/YWMlcX3.jpeg', 'https://i.imgur.com/w1M3tEf.jpeg', 'https://i.imgur.com/m9w06xz.jpeg', 'https://i.imgur.com/jms4rFg.jpeg', 'https://i.imgur.com/AjmAIoe.jpeg', 'https://i.imgur.com/sRLYJ9g.jpeg', 'https://i.imgur.com/r2lJMDV.jpeg', 'https://i.imgur.com/4pFOy8o.jpeg', 'https://i.imgur.com/zcGZ7Db.jpeg', 'https://i.imgur.com/qTeKsnv.jpeg', 'https://i.imgur.com/eXvSKyr.jpeg', 'https://i.imgur.com/sitKGuK.jpeg', 'https://i.imgur.com/r0uWKSZ.jpeg', 'https://i.imgur.com/MJorbaV.jpeg', 'https://i.imgur.com/6coZdVa.jpeg', 'https://i.imgur.com/q89IeYC.jpeg', 'https://i.imgur.com/pXavReN.jpeg', 'https://i.imgur.com/Zdtk4mU.jpeg', 'https://i.imgur.com/DwGJWKf.jpeg', 'https://i.imgur.com/Yb8J658.jpeg', 'https://i.imgur.com/GaYlJ8H.jpeg', 'https://i.imgur.com/h6jd8CL.jpeg', 'https://i.imgur.com/sayiEJH.jpeg']
+              }
+          }
+      },
+      fotografie: {
+          title: "Fotografie",
+          items: ["https://www.dropbox.com/scl/fi/j1uhkt77apnlxsxb8pzn7/FotografieDesignprojekt_Serhat_Yuecel_01.tif?rlkey=gjvxchttkglgyvpo71k3z8fa0&raw=1", "https://www.dropbox.com/scl/fi/cgedvx8hyt7ihmpfltkb4/FotografieDesignprojekt_Serhat_Yuecel_02.tif?rlkey=4er18i7utszg3o80y7zxxavxk&raw=1", "https://www.dropbox.com/scl/fi/j1uhkt77apnlxsxb8pzn7/FotografieDesignprojekt_Serhat_Yuecel_01.tif?rlkey=gjvxchttkglgyvpo71k3z8fa0&raw=1", "https://www.dropbox.com/scl/fi/2f7qkvjxnhky9vtuzzq08/FotografieDesignprojekt_Serhat_Yuecel_04.tif?rlkey=y2kkw03ucc5c34p9mhgv2fm67&raw=1", "https://www.dropbox.com/scl/fi/duo1tvbezqm5s68jqg48r/FotografieDesignprojekt_Serhat_Yuecel_05.tif?rlkey=u4tlj3iahhg4v86u6rd34nyds&raw=1", "https://www.dropbox.com/scl/fi/8n4z3oflr95d6rhzx315h/FotografieDesignprojekt_Serhat_Yuecel_06.tif?rlkey=52ths9o0tucrsxm962qkubncu&raw=1"]
+      },
+      audiovisuelle: {
+          title: "Audiovisuelle Medien",
+          items: ["https://www.dropbox.com/scl/fi/9rfr0qum2tt5lpz9d0ucl/Finale.mp4?rlkey=vdopbc80hu0cjav5sht6w502j&raw=1", "https://www.dropbox.com/scl/fi/8wjkdnvpwranjbo9ng7x6/harmonyFinal.mp4?rlkey=wv3z5f0anzwlmvfjyyi55kj66&raw=1", "https://www.dropbox.com/scl/fi/o07q6oksr1evhjrx1y8yn/America.mov?rlkey=xvggasu21kdk3cnai3l97qjbb&raw=1", "https://www.dropbox.com/scl/fi/x336zi7y8f65xnk66fukx/CineAI.mp4?rlkey=rnuuhijfy5cbbd5db61ddfmq1&raw=1"]
+      },
+      print: {
+          title: "Print- & Editorialdesign",
+          items: ["https://www.dropbox.com/scl/fi/ifcdjsbn3rzxad5w4zx4j/Rezept.pdf?rlkey=93z880oaxn2djhgoo05wp02of&raw=1", "https://www.dropbox.com/scl/fi/w42qni3g3sideqofmsbhf/Cyberflop.pdf?rlkey=pcb948jxikgi456a01mkxh5tq&raw=1", "https://www.dropbox.com/scl/fi/s9gwdw1sdmrs916mh7jkw/buch.pdf?rlkey=q5zslelttcg9nyip2cveafz44&raw=1", "https://i.imgur.com/1221Kqk.png", "https://www.dropbox.com/scl/fi/yqmhqlwfbyguq3mr0nssq/BuchcoverOnceUponAtimeInHollywood.jpg?rlkey=tffwhziygm816zftqhl9r4ska&raw=1"]
+      },
+      branding: {
+          title: "Branding & Marketing",
+          items: ["https://www.dropbox.com/scl/fi/eloriu5zw2k8h8i9q0dzu/VMlogo-Negativ.png?rlkey=pg5w28rcv2b650iihq0afslgw&raw=1", "https://www.dropbox.com/scl/fi/7z6bf9yhcxtdpisaxht8z/Tshirt2.png?rlkey=jpjmde0qpox44fx73otp9mm5y&raw=1", "https://www.dropbox.com/scl/fi/uco95r5hxxp3lrx28mslp/NotebookL-nder.jpg?rlkey=iqu161hzh81mbhveszl755lh3&raw=1", "https://www.dropbox.com/scl/fi/nyks093un49a8sxtqco40/Mockup-Wand.jpg?rlkey=tt0er6y5qb8czd3h44s4afea4&raw=1", "https://www.dropbox.com/scl/fi/1igmd59gp5vtfphrwjs19/Free_Tote_Bag_Mockup_1.jpg?rlkey=dqkvhjt2aoge77uos90i433kh&raw=1", "https://www.dropbox.com/scl/fi/skhvhba8ez8d0pxu3zxq5/Billboard-Mockup.jpg?rlkey=vmw116zn4s6djewwq3frmnwny&raw=1"]
+      }
+  };
+
 
   const main = document.getElementById('main-content');
   const view = document.getElementById('project-view');
@@ -703,18 +729,9 @@ html, body {
     if (data.logo) html += `<img src="${data.logo}" class="project-logo" alt="Logo">`;
     html += `<div>${data.text}</div>`;
     document.getElementById('project-text').innerHTML = html;
-    
-    const pArea = document.getElementById('persona-area');
-    const pText = document.getElementById('persona-text');
-    if (data.persona_text) {
-        pArea.style.display = 'block';
-        pText.innerHTML = data.persona_text;
-    } else {
-        pArea.style.display = 'none';
-    }
 
     // Attach Lightbox Listeners after content injection
-    const triggers = document.querySelectorAll('.lightbox-trigger');
+    const triggers = view.querySelectorAll('.lightbox-trigger');
     triggers.forEach(img => {
         img.onclick = () => {
             lightboxImg.src = img.src;
@@ -722,6 +739,17 @@ html, body {
             document.body.style.overflow = 'hidden';
         };
     });
+    
+    // 4. Attach listeners for Ideate slider
+    const ideateContainer = view.querySelector('.ideate-slider-container');
+    if (ideateContainer) {
+        const slider = ideateContainer.querySelector('.ideate-slider');
+        const prevBtn = ideateContainer.querySelector('.prev');
+        const nextBtn = ideateContainer.querySelector('.next');
+        prevBtn.onclick = () => { slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' }); };
+        nextBtn.onclick = () => { slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' }); };
+    }
+
 
     window.scrollTo(0,0);
   }
@@ -736,6 +764,7 @@ html, body {
   let currentIdx = 0;
   const slides = document.querySelectorAll('.project-slide');
   const dots = document.querySelectorAll('.projects-dot');
+  let autoSlideInterval;
 
   function updateSlider(idx) {
     slides.forEach((s, i) => s.classList.toggle('active', i === idx));
@@ -743,47 +772,148 @@ html, body {
     currentIdx = idx;
   }
 
+  function startAutoSlider() {
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+        if (main.style.display !== 'none' && sections.work.style.display !== 'none') {
+            updateSlider((currentIdx + 1) % slides.length);
+        }
+    }, 5000);
+  }
+
   dots.forEach((dot, i) => {
-    dot.onclick = (e) => { e.stopPropagation(); updateSlider(i); };
+    dot.onclick = (e) => { 
+        e.stopPropagation(); 
+        updateSlider(i); 
+        startAutoSlider(); // Reset interval on manual navigation
+    };
   });
+  
+  function showOtherDesigns() {
+      showSection('other');
+      const container = sections.other;
+      container.innerHTML = `
+          <div class="other-designs-layout">
+              <aside class="categories-nav">
+                  <ul id="categories-list"></ul>
+              </aside>
+              <main class="gallery-content" id="gallery-content"></main>
+          </div>
+      `;
+
+      const categoriesList = container.querySelector('#categories-list');
+      const galleryContent = container.querySelector('#gallery-content');
+      
+      Object.entries(OTHER_DESIGNS_DATA).forEach(([catKey, category]) => {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.className = 'category-btn';
+          btn.dataset.category = catKey;
+          btn.textContent = category.title;
+          li.appendChild(btn);
+          
+          if (category.subcategories) {
+              const subUl = document.createElement('ul');
+              subUl.className = 'subcategory-list';
+              subUl.dataset.parentCategory = catKey;
+
+              Object.entries(category.subcategories).forEach(([subKey, subcategory]) => {
+                  const subLi = document.createElement('li');
+                  const subBtn = document.createElement('button');
+                  subBtn.className = 'subcategory-btn';
+                  subBtn.dataset.category = catKey;
+                  subBtn.dataset.subcategory = subKey;
+                  subBtn.textContent = subcategory.title;
+                  subLi.appendChild(subBtn);
+                  subUl.appendChild(subLi);
+              });
+              li.appendChild(subUl);
+          }
+          categoriesList.appendChild(li);
+      });
+      
+      function renderGallery(items) {
+          galleryContent.innerHTML = '';
+          items.forEach(itemUrl => {
+              const itemDiv = document.createElement('div');
+              itemDiv.className = 'gallery-item';
+              const extension = itemUrl.split('?')[0].split('.').pop().toLowerCase();
+              
+              if (['mp4', 'mov'].includes(extension)) {
+                  itemDiv.innerHTML = `<video src="${itemUrl}" controls muted loop autoplay playsinline></video>`;
+              } else if (extension === 'pdf') {
+                  itemDiv.classList.add('pdf-item');
+                  const filename = itemUrl.split('/').pop().split('?')[0];
+                  itemDiv.innerHTML = `<a href="${itemUrl}" target="_blank" rel="noopener noreferrer">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                      <span class="gallery-item-filename">${filename}</span>
+                  </a>`;
+              } else {
+                  itemDiv.innerHTML = `<img src="${itemUrl}" alt="Design work" class="lightbox-trigger">`;
+              }
+              galleryContent.appendChild(itemDiv);
+          });
+
+          galleryContent.querySelectorAll('.lightbox-trigger').forEach(img => {
+              img.onclick = () => {
+                  lightboxImg.src = img.src;
+                  lightbox.style.display = 'flex';
+              };
+          });
+      }
+
+      categoriesList.addEventListener('click', (e) => {
+          const target = e.target.closest('button');
+          if (!target) return;
+          
+          const { category, subcategory } = target.dataset;
+
+          // Handle active states
+          container.querySelectorAll('.category-btn, .subcategory-btn').forEach(b => b.classList.remove('active'));
+          target.classList.add('active');
+          if (target.classList.contains('category-btn')) {
+              container.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
+          } else {
+               container.querySelector(`.category-btn[data-category="${category}"]`).classList.add('active');
+          }
+
+
+          // Handle subcategory visibility
+          container.querySelectorAll('.subcategory-list').forEach(ul => ul.classList.remove('visible'));
+          if(target.classList.contains('category-btn') && OTHER_DESIGNS_DATA[category].subcategories) {
+              target.nextElementSibling.classList.add('visible');
+          } else if (target.classList.contains('subcategory-btn')) {
+              target.closest('.subcategory-list').classList.add('visible');
+          }
+          
+          // Render content
+          const catData = OTHER_DESIGNS_DATA[category];
+          if (subcategory) {
+              renderGallery(catData.subcategories[subcategory].items);
+          } else if (catData.items) {
+              renderGallery(catData.items);
+          } else {
+              // If main category is clicked and it has subs, show the first sub by default
+              const firstSubKey = Object.keys(catData.subcategories)[0];
+              renderGallery(catData.subcategories[firstSubKey].items);
+              container.querySelector(`.subcategory-btn[data-subcategory="${firstSubKey}"]`).classList.add('active');
+          }
+      });
+      
+      // Initial render
+      container.querySelector('.category-btn[data-category="illustration"]').click();
+  }
 
   slides.forEach(slide => {
     slide.onclick = () => {
       const slug = slide.dataset.project;
-      if (slug === 'other') showSection('other');
+      if (slug === 'other') showOtherDesigns();
       else if (slug === 'aktuelles') return;
       else showProject(slug);
     };
   });
-
-  // Auto Slider
-  setInterval(() => {
-    if (main.style.display !== 'none' && sections.work.style.display !== 'none') {
-        updateSlider((currentIdx + 1) % slides.length);
-    }
-  }, 5000);
-
-  // Canvas Animation
-  const canvas = document.getElementById('designs-bg-animated');
-  if (canvas) {
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      function res() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-      window.onresize = res; res();
-      function draw(t) {
-          ctx.clearRect(0,0,w,h);
-          for(let i=0; i<6; i++) {
-              ctx.beginPath();
-              let x = w/2 + Math.sin(t/1500 + i)*w/4;
-              let y = h/2 + Math.cos(t/1200 + i)*h/4;
-              ctx.arc(x, y, 200, 0, Math.PI*2);
-              ctx.fillStyle = `hsla(${(t/50 + i*60)%360}, 60%, 50%, 0.15)`;
-              ctx.fill();
-          }
-          requestAnimationFrame(draw);
-      }
-      draw(0);
-  }
+  
+  startAutoSlider();
 })();
 </script>
 </body>
