@@ -345,7 +345,7 @@ section#work { padding-top: 15px; }
   }
 }
 
-.live-status { display: inline-flex; align-items: center; color: #ff4d4d; font-weight: 600; margin-bottom: 20px; }
+.live-status { display: inline-flex; align-items: center; color: #ff4d4d; font-weight: 600; }
 .live-status::before { content: ''; width: 8px; height: 8px; background: #ff4d4d; border-radius: 50%; margin-right: 10px; animation: pulse 1.5s infinite; }
 
 @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
@@ -468,7 +468,7 @@ section#work { padding-top: 15px; }
           <div class="slide-inner" style="background-image:url('https://i.imgur.com/Ng9hfO0.png'); background-size: cover; background-position: center;">
             <div class="slide-content">
                 <div class="slide-title">ArtAtlas</div>
-                <div class="slide-subtitle">Ein digitales Zuhause für globale Kuration und Kunst.</div>
+                <div class="slide-subtitle">Ein digitales Kunstarchiv</div>
             </div>
           </div>
         </div>
@@ -508,7 +508,7 @@ section#work { padding-top: 15px; }
   <section class="container" id="contact" style="display:none;">
       <div style="padding: 100px 0; text-align: center;">
           <h2 class="aktuelles-title">Kontakt aufnehmen</h2>
-          <p class="aktuelles-sub" style="margin-bottom: 40px;">Schreib mir gerne eine E-Mail oder vernetze dich.</p>
+          <p class="aktuelles-sub" style="margin-bottom: 40px;">Schreib mir gerne eine E-Mail.</p>
           <a href="mailto:serhat02@live.de" style="color: #fff; font-size: 2.5em; text-decoration: none; font-weight: 800; border-bottom: 4px solid #3b82f6; padding-bottom: 8px;">serhat02@live.de</a>
       </div>
   </section>
@@ -533,14 +533,20 @@ section#work { padding-top: 15px; }
 (function(){
   const PROJECTS = {
     ai_news: {
-      mainTitle: "AI News",
-      status: '<h3 class="project-section-title" style="margin-top: 10px; margin-bottom: 24px;">Konzept</h3>',
       text: `
+      <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
+        <h1 class="project-main-title" style="margin: 0;">AI News</h1>
+        <div style="height: 40px; width: 1px; background-color: #444;"></div>
+        <div style="display: flex; align-items: center; gap: 8px; color: #aaa; font-size: 0.9em;">
+          Made with <img src="https://i.imgur.com/BgaztIT.png" style="height: 24px; vertical-align: middle;"> + ChatGPT
+        </div>
+      </div>
+      <h3 class="project-section-title" style="margin-top: 10px; margin-bottom: 24px;">Konzept</h3>
       <p class="project-text">Das Ziel mit AI News war es, ein KI-gesteuertes Nachrichtenportal zu schaffen, das als All-in-1-Plattform dient und alles abdeckt, was bei den größten Nachrichtenagenturen passiert.</p>
       <p class="project-text">Die Aufgabe der KI ist es, nach vielen Berichten zu einem aktuellen Thema zu suchen und diese zu filtern. Basierend darauf verarbeitet sie alle diese Berichte und erstellt eine vollständig abgedeckte Version des spezifischen Artikels. Der Mehrwert der App: Es wird sichergestellt, dass der Leser mit allen wichtigen Fakten und Informationen versorgt wird.</p>
       
       <h3 class="project-section-title">Research</h3>
-      <p class="project-text">Es erfolgte eine allgemeine Recherche mithilfe vom KI LLM Perplexity und ich ging auch folgende Kriterien ein und fasste abschließend die Infos zusammen.</p>
+      <p class="project-text">Es erfolgte eine allgemeine Recherche mithilfe des KI Large-Language-Models Perplexity und ich ging auch folgende Kriterien ein und fasste abschließend die Infos zusammen.</p>
       <div class="research-accordion">
         <details><summary>Nutzerbedürfnisse</summary><div class="details-content"><img src="https://i.imgur.com/TQ84obf.png" class="project-detail-img lightbox-trigger" alt="Nutzerbedürfnisse"></div></details>
         <details><summary>Nutzerverhalten</summary><div class="details-content"><img src="https://i.imgur.com/flWbDOO.png" class="project-detail-img lightbox-trigger" alt="Nutzerverhalten"></div></details>
@@ -579,7 +585,7 @@ section#work { padding-top: 15px; }
       </div>
       
       <h3 class="project-section-title">Sitemap</h3>
-      <img src="https://i.imgur.com/LgiRDB8.png" class="project-detail-img lightbox-trigger" alt="AI News Sitemap" onerror="this.src='https://via.placeholder.com/1200x600?text=Sitemap+Grafik'">
+      <img src="https://i.imgur.com/DGIOTBd.jpeg" class="project-detail-img lightbox-trigger" alt="AI News Sitemap">
       
       <h3 class="project-section-title">User Flow</h3>
       <img src="https://i.imgur.com/QoJqjw6.png" class="project-detail-img lightbox-trigger" alt="AI News User Flow">
@@ -599,9 +605,15 @@ section#work { padding-top: 15px; }
           <img src="https://i.imgur.com/n61QET8.jpeg" class="project-detail-img lightbox-trigger" alt="Wireframe Artikelansicht Mobile">
         </div>
         <div>
-          <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">Startseite (Mobile)</p>
+          <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">Startseite + Web (Web)</p>
           <img src="https://i.imgur.com/rpYnJ9V.png" class="project-detail-img lightbox-trigger" alt="Wireframe Startseite Mobile">
         </div>
+      </div>
+
+      <h3 class="project-section-title">Erste Version mit Figma</h3>
+      <div style="margin-bottom: 24px;">
+        <a href="https://www.figma.com/design/rJz3xJbhbCOwKyYgqi9j0u/AI-NEWS-Web?node-id=0-1&p=f&t=yFUGiFAkR9Ig4XOf-0" target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: underline; font-size: 1.1em; margin-right: 20px;">(Web)</a>
+        <a href="https://www.figma.com/design/SP9owGB6WztTk4OUZ82gSz/AI-NEWS-Mobile?t=yFUGiFAkR9Ig4XOf-0" target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: underline; font-size: 1.1em;">(Mobile)</a>
       </div>
 
       <h3 class="project-section-title">Endprodukt</h3>
@@ -618,13 +630,20 @@ section#work { padding-top: 15px; }
       `
     },
     ineed: {
-      mainTitle: "iNeed",
-      logo: "https://i.imgur.com/roE6YNJ.png",
-      status: '<span class="live-status">In Entwicklung</span>',
-      text: `<p class="project-text">iNeed ist ein Marktplatz für Alltagsgegenstände in deiner Community. Leihen statt kaufen. Das Ziel: Weniger Konsum, mehr Miteinander. Die App ermöglicht es, unkompliziert Dinge zu finden und direkt mit Nachbarn zu verhandeln. So kommst du günstiger, schneller und oft gratis an das, was du wirklich brauchst.</p>
+      text: `
+      <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px;">
+        <img src="https://i.imgur.com/roE6YNJ.png" alt="iNeed Logo" style="height: 90px;">
+        <div style="height: 40px; width: 1px; background-color: #444;"></div>
+        <div style="display: flex; align-items: center; gap: 8px; color: #aaa; font-size: 0.9em;">
+          Made with <img src="https://i.imgur.com/BgaztIT.png" style="height: 24px; vertical-align: middle;"> + ChatGPT
+        </div>
+      </div>
+      <div style="text-align: center; margin-bottom: 24px;"><span class="live-status">In Entwicklung</span></div>
+
+      <p class="project-text">iNeed ist ein Marktplatz für Alltagsgegenstände in deiner Community. Leihen statt kaufen. Das Ziel: Weniger Konsum, mehr Miteinander. Die App ermöglicht es, unkompliziert Dinge zu finden und direkt mit Nachbarn zu verhandeln. So kommst du günstiger, schneller und oft gratis an das, was du wirklich brauchst.</p>
       
       <h3 class="project-section-title">Sitemap</h3>
-      <img src="https://i.imgur.com/LgiRDB8.png" class="project-detail-img lightbox-trigger" alt="iNeed Sitemap">
+      <img src="https://i.imgur.com/voZ7CeV.jpeg" class="project-detail-img lightbox-trigger" alt="iNeed Sitemap">
       
       <h3 class="project-section-title">User Flow</h3>
       <img src="https://i.imgur.com/QoJqjw6.png" class="project-detail-img lightbox-trigger" alt="iNeed User Flow">
@@ -645,8 +664,10 @@ section#work { padding-top: 15px; }
       </div>`
     },
     artatlas: {
-      mainTitle: "ArtAtlas",
-      text: `<p class="project-text">Ein digitales Archiv für Kunstschaffende weltweit. Fokus auf Kuration und visuelle Qualität.</p>
+      text: `
+      <h1 class="project-main-title">ArtAtlas</h1>
+      <p class="project-text">Ein digitales Archiv für alle Arten von Kunst und deren wichtigste Metadaten. Es dient als einfache und übersichtliche Methode, um Kunst digital zu bewahren und die Rohdaten in den Vordergrund zu stellen.</p>
+      <p class="project-text">Diese Mini-Projekt wurde mit Sketch gestaltet und mit Xcode als funktionsfähige App umgesetzt.</p>
       <div class="project-img-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <img src="https://i.imgur.com/6KSR9YU.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 1">
         <img src="https://i.imgur.com/7SjAlPi.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 2">
@@ -689,7 +710,7 @@ section#work { padding-top: 15px; }
               items: ["https://www.dropbox.com/scl/fi/eloriu5zw2k8h8i9q0dzu/VMlogo-Negativ.png?rlkey=pg5w28rcv2b650iihq0afslgw&raw=1", "https://www.dropbox.com/scl/fi/7z6bf9yhcxtdpisaxht8z/Tshirt2.png?rlkey=jpjmde0qpox44fx73otp9mm5y&raw=1", "https://www.dropbox.com/scl/fi/uco95r5hxxp3lrx28mslp/NotebookL-nder.jpg?rlkey=iqu161hzh81mbhveszl755lh3&raw=1", "https://www.dropbox.com/scl/fi/nyks093un49a8sxtqco40/Mockup-Wand.jpg?rlkey=tt0er6y5qb8czd3h44s4afea4&raw=1", "https://www.dropbox.com/scl/fi/1igmd59gp5vtfphrwjs19/Free_Tote_Bag_Mockup_1.jpg?rlkey=dqkvhjt2aoge77uos90i433kh&raw=1", "https://www.dropbox.com/scl/fi/skhvhba8ez8d0pxu3zxq5/Billboard-Mockup.jpg?rlkey=vmw116zn4s6djewwq3frmnwny&raw=1"]
             },
             {
-              title: 'iNeed',
+              title: '',
               logo: 'https://i.imgur.com/roE6YNJ.png',
               items: ["https://i.imgur.com/JJ68Rcd.jpeg", "https://i.imgur.com/gG1cPJT.jpeg"]
             }
@@ -736,12 +757,7 @@ section#work { padding-top: 15px; }
     main.style.display = 'none';
     view.style.display = 'block';
     
-    let html = `<h1 class="project-main-title">${data.mainTitle}</h1>`;
-    if (data.logo) html += `<img src="${data.logo}" class="project-logo" alt="${data.mainTitle} Logo">`;
-    if (data.status) html += `<div class="project-status-note">${data.status}</div>`;
-    html += `<div>${data.text}</div>`;
-    
-    projectTextEl.innerHTML = html;
+    projectTextEl.innerHTML = data.text;
 
     const triggers = view.querySelectorAll('.lightbox-trigger');
     triggers.forEach(img => {
@@ -883,8 +899,12 @@ section#work { padding-top: 15px; }
               galleryContent.innerHTML = '';
               catData.sections.forEach(section => {
                   let sectionHTML = `<div style="margin-bottom: 60px;">`;
-                  sectionHTML += `<h3 class="project-section-title" style="text-align: left; margin-top: 0; margin-bottom: 16px;">${section.title}</h3>`;
-                  if(section.logo) sectionHTML += `<img src="${section.logo}" alt="${section.title} Logo" style="max-width: 120px; height: auto; margin-bottom: 24px;">`;
+                  if (section.title) {
+                    sectionHTML += `<h3 class="project-section-title" style="text-align: left; margin-top: 0; margin-bottom: 16px;">${section.title}</h3>`;
+                  }
+                  if(section.logo) {
+                    sectionHTML += `<img src="${section.logo}" alt="${section.title || 'Section Logo'}" style="max-width: 120px; height: auto; margin-bottom: 24px;">`;
+                  }
                   sectionHTML += `<div class="gallery-content">${section.items.map(createGalleryItemHTML).join('')}</div></div>`;
                   galleryContent.innerHTML += sectionHTML;
               });
@@ -896,9 +916,12 @@ section#work { padding-top: 15px; }
           } else if (catData.items) {
               renderGallery(catData.items);
           } else {
-              const firstSubKey = Object.keys(catData.subcategories)[0];
-              renderGallery(catData.subcategories[firstSubKey].items);
-              container.querySelector(`.subcategory-btn[data-subcategory="${firstSubKey}"]`).classList.add('active');
+              let defaultSubKey = Object.keys(catData.subcategories)[0];
+              if (category === 'illustration') {
+                  defaultSubKey = 'drawings';
+              }
+              renderGallery(catData.subcategories[defaultSubKey].items);
+              container.querySelector(`.subcategory-btn[data-subcategory="${defaultSubKey}"]`).classList.add('active');
           }
       });
       
