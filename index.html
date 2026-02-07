@@ -667,7 +667,7 @@ section#work { padding-top: 15px; }
       text: `
       <h1 class="project-main-title">ArtAtlas</h1>
       <p class="project-text">Ein digitales Archiv für alle Arten von Kunst und deren wichtigste Metadaten. Es dient als einfache und übersichtliche Methode, um Kunst digital zu bewahren und die Rohdaten in den Vordergrund zu stellen.</p>
-      <p class="project-text">Diese Mini-Projekt wurde mit Sketch gestaltet und mit Xcode als funktionsfähige App umgesetzt.</p>
+      <p class="project-text">Diese Mini-Projekt wurde mit Sketch gestaltet und mit Xcode als funktionsfähige App umgesetzt. Für die Kunstwerke habe ich meine eigene Kunst bzw. Webseite (<a href="https://serhatyuecelstudio.com" target="_blank" rel="noopener noreferrer" style="color: #3b82f6; text-decoration: underline;">serhatyuecelstudio.com</a>) verwendet und die darin enthaltenen Daten als Input mit der App verknüpft.</p>
       <div class="project-img-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
         <img src="https://i.imgur.com/6KSR9YU.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 1">
         <img src="https://i.imgur.com/7SjAlPi.png" class="project-detail-img lightbox-trigger" alt="ArtAtlas Screen 2">
@@ -677,18 +677,13 @@ section#work { padding-top: 15px; }
   };
 
   const OTHER_DESIGNS_DATA = {
+      digitales_produktdesign: {
+          title: "Digitales Produktdesign",
+          items: ['https://i.imgur.com/DEONClQ.jpeg', 'https://i.imgur.com/YEsMdF1.jpeg', 'https://i.imgur.com/SX4ZAz8.jpeg', 'https://i.imgur.com/eNzNJjh.jpeg', 'https://i.imgur.com/sbdfnrF.jpeg', 'https://i.imgur.com/pzhXIPj.jpeg', 'https://i.imgur.com/URXG0Jc.jpeg', 'https://i.imgur.com/QHsK102.jpeg', 'https://i.imgur.com/5bQXCdu.png']
+      },
       illustration: {
           title: "Illustration",
-          subcategories: {
-              digital: {
-                  title: "Digitales Produktdesign",
-                  items: ['https://i.imgur.com/DEONClQ.jpeg', 'https://i.imgur.com/YEsMdF1.jpeg', 'https://i.imgur.com/SX4ZAz8.jpeg', 'https://i.imgur.com/eNzNJjh.jpeg', 'https://i.imgur.com/sbdfnrF.jpeg', 'https://i.imgur.com/pzhXIPj.jpeg', 'https://i.imgur.com/URXG0Jc.jpeg', 'https://i.imgur.com/QHsK102.jpeg', 'https://i.imgur.com/5bQXCdu.png']
-              },
-              drawings: {
-                  title: "Zeichnungen",
-                  items: ['https://i.imgur.com/YWMlcX3.jpeg', 'https://i.imgur.com/w1M3tEf.jpeg', 'https://i.imgur.com/m9w06xz.jpeg', 'https://i.imgur.com/jms4rFg.jpeg', 'https://i.imgur.com/AjmAIoe.jpeg', 'https://i.imgur.com/sRLYJ9g.jpeg', 'https://i.imgur.com/r2lJMDV.jpeg', 'https://i.imgur.com/4pFOy8o.jpeg', 'https://i.imgur.com/zcGZ7Db.jpeg', 'https://i.imgur.com/qTeKsnv.jpeg', 'https://i.imgur.com/eXvSKyr.jpeg', 'https://i.imgur.com/sitKGuK.jpeg', 'https://i.imgur.com/r0uWKSZ.jpeg', 'https://i.imgur.com/MJorbaV.jpeg', 'https://i.imgur.com/6coZdVa.jpeg', 'https://i.imgur.com/q89IeYC.jpeg', 'https://i.imgur.com/pXavReN.jpeg', 'https://i.imgur.com/Zdtk4mU.jpeg', 'https://i.imgur.com/DwGJWKf.jpeg', 'https://i.imgur.com/Yb8J658.jpeg', 'https://i.imgur.com/GaYlJ8H.jpeg', 'https://i.imgur.com/h6jd8CL.jpeg', 'https://i.imgur.com/sayiEJH.jpeg']
-              }
-          }
+          items: ['https://i.imgur.com/YWMlcX3.jpeg', 'https://i.imgur.com/w1M3tEf.jpeg', 'https://i.imgur.com/m9w06xz.jpeg', 'https://i.imgur.com/jms4rFg.jpeg', 'https://i.imgur.com/AjmAIoe.jpeg', 'https://i.imgur.com/sRLYJ9g.jpeg', 'https://i.imgur.com/r2lJMDV.jpeg', 'https://i.imgur.com/4pFOy8o.jpeg', 'https://i.imgur.com/zcGZ7Db.jpeg', 'https://i.imgur.com/qTeKsnv.jpeg', 'https://i.imgur.com/eXvSKyr.jpeg', 'https://i.imgur.com/sitKGuK.jpeg', 'https://i.imgur.com/r0uWKSZ.jpeg', 'https://i.imgur.com/MJorbaV.jpeg', 'https://i.imgur.com/6coZdVa.jpeg', 'https://i.imgur.com/q89IeYC.jpeg', 'https://i.imgur.com/pXavReN.jpeg', 'https://i.imgur.com/Zdtk4mU.jpeg', 'https://i.imgur.com/DwGJWKf.jpeg', 'https://i.imgur.com/Yb8J658.jpeg', 'https://i.imgur.com/GaYlJ8H.jpeg', 'https://i.imgur.com/h6jd8CL.jpeg', 'https://i.imgur.com/sayiEJH.jpeg']
       },
       fotografie: {
           title: "Fotografie",
@@ -915,11 +910,8 @@ section#work { padding-top: 15px; }
               renderGallery(catData.subcategories[subcategory].items);
           } else if (catData.items) {
               renderGallery(catData.items);
-          } else {
-              let defaultSubKey = Object.keys(catData.subcategories)[0];
-              if (category === 'illustration') {
-                  defaultSubKey = 'drawings';
-              }
+          } else if(catData.subcategories) {
+              const defaultSubKey = Object.keys(catData.subcategories)[0];
               renderGallery(catData.subcategories[defaultSubKey].items);
               container.querySelector(`.subcategory-btn[data-subcategory="${defaultSubKey}"]`).classList.add('active');
           }
