@@ -175,6 +175,26 @@ section#work { padding-top: 15px; }
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+.back-link-top {
+  display: inline-block;
+  margin-bottom: 30px;
+  padding: 10px 20px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 50px;
+  color: #aaa;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9em;
+  transition: all 0.2s ease-in-out;
+}
+.back-link-top:hover {
+  background-color: #222;
+  border-color: #555;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 /* Research Accordion Styles - Adjusted for Side-by-Side Grid */
 .research-accordion {
   display: grid;
@@ -530,7 +550,7 @@ section#work { padding-top: 15px; }
 </div>
 
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', () => {
   const PROJECTS = {
     ai_news: {
       text: `
@@ -752,7 +772,13 @@ section#work { padding-top: 15px; }
     main.style.display = 'none';
     view.style.display = 'block';
     
-    projectTextEl.innerHTML = data.text;
+    const backButtonHtml = `<a href="#" id="back-link-top" class="back-link-top">&larr; Zurück zu den Projekten</a>`;
+    projectTextEl.innerHTML = backButtonHtml + data.text;
+
+    document.getElementById('back-link-top').onclick = (e) => {
+        e.preventDefault();
+        showSection('work');
+    };
 
     const triggers = view.querySelectorAll('.lightbox-trigger');
     triggers.forEach(img => {
@@ -842,82 +868,84 @@ section#work { padding-top: 15px; }
   function showOtherDesigns() {
       showSection('other');
       const container = sections.other;
-      container.innerHTML = `<div class="other-designs-layout"><aside class="categories-nav"><ul id="categories-list"></ul></aside><main id="gallery-content"></main></div>`;
+      if (!container.innerHTML) { // Only render content once
+        container.innerHTML = `<div class="other-designs-layout"><aside class="categories-nav"><ul id="categories-list"></ul></aside><main id="gallery-content"></main></div>`;
 
-      const categoriesList = container.querySelector('#categories-list');
-      const galleryContent = container.querySelector('#gallery-content');
-      
-      Object.entries(OTHER_DESIGNS_DATA).forEach(([catKey, category]) => {
-          const li = document.createElement('li');
-          const btn = document.createElement('button');
-          btn.className = 'category-btn'; btn.dataset.category = catKey; btn.textContent = category.title;
-          li.appendChild(btn);
-          if (category.subcategories) {
-              const subUl = document.createElement('ul');
-              subUl.className = 'subcategory-list';
-              Object.entries(category.subcategories).forEach(([subKey, subcat]) => {
-                  const subLi = document.createElement('li');
-                  const subBtn = document.createElement('button');
-                  subBtn.className = 'subcategory-btn'; subBtn.dataset.category = catKey; subBtn.dataset.subcategory = subKey; subBtn.textContent = subcat.title;
-                  subLi.appendChild(subBtn);
-                  subUl.appendChild(subLi);
-              });
-              li.appendChild(subUl);
-          }
-          categoriesList.appendChild(li);
-      });
-      
-      const renderGallery = (items) => {
-          galleryContent.innerHTML = items.map(createGalleryItemHTML).join('');
-          galleryContent.querySelectorAll('.lightbox-trigger').forEach(img => {
-              img.onclick = () => { lightboxImg.src = img.src; lightbox.style.display = 'flex'; };
-          });
-      };
+        const categoriesList = container.querySelector('#categories-list');
+        const galleryContent = container.querySelector('#gallery-content');
+        
+        Object.entries(OTHER_DESIGNS_DATA).forEach(([catKey, category]) => {
+            const li = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.className = 'category-btn'; btn.dataset.category = catKey; btn.textContent = category.title;
+            li.appendChild(btn);
+            if (category.subcategories) {
+                const subUl = document.createElement('ul');
+                subUl.className = 'subcategory-list';
+                Object.entries(category.subcategories).forEach(([subKey, subcat]) => {
+                    const subLi = document.createElement('li');
+                    const subBtn = document.createElement('button');
+                    subBtn.className = 'subcategory-btn'; subBtn.dataset.category = catKey; subBtn.dataset.subcategory = subKey; subBtn.textContent = subcat.title;
+                    subLi.appendChild(subBtn);
+                    subUl.appendChild(subLi);
+                });
+                li.appendChild(subUl);
+            }
+            categoriesList.appendChild(li);
+        });
+        
+        const renderGallery = (items) => {
+            galleryContent.innerHTML = items.map(createGalleryItemHTML).join('');
+            galleryContent.querySelectorAll('.lightbox-trigger').forEach(img => {
+                img.onclick = () => { lightboxImg.src = img.src; lightbox.style.display = 'flex'; };
+            });
+        };
 
-      categoriesList.addEventListener('click', (e) => {
-          const target = e.target.closest('button');
-          if (!target) return;
-          const { category, subcategory } = target.dataset;
+        categoriesList.addEventListener('click', (e) => {
+            const target = e.target.closest('button');
+            if (!target) return;
+            const { category, subcategory } = target.dataset;
 
-          container.querySelectorAll('.category-btn, .subcategory-btn').forEach(b => b.classList.remove('active'));
-          target.classList.add('active');
-          if(target.classList.contains('subcategory-btn')) target.closest('li').querySelector('.category-btn').classList.add('active');
-          
-          container.querySelectorAll('.subcategory-list').forEach(ul => ul.classList.remove('visible'));
-          if(target.closest('li').querySelector('.subcategory-list')) target.closest('li').querySelector('.subcategory-list').classList.add('visible');
+            container.querySelectorAll('.category-btn, .subcategory-btn').forEach(b => b.classList.remove('active'));
+            target.classList.add('active');
+            if(target.classList.contains('subcategory-btn')) target.closest('li').querySelector('.category-btn').classList.add('active');
+            
+            container.querySelectorAll('.subcategory-list').forEach(ul => ul.classList.remove('visible'));
+            if(target.closest('li').querySelector('.subcategory-list')) target.closest('li').querySelector('.subcategory-list').classList.add('visible');
 
-          const catData = OTHER_DESIGNS_DATA[category];
+            const catData = OTHER_DESIGNS_DATA[category];
 
-          galleryContent.className = 'gallery-content'; // Reset class
-          if (catData.sections) { // Special case for Branding
-              galleryContent.className = ''; // Remove grid layout from main container
-              galleryContent.innerHTML = '';
-              catData.sections.forEach(section => {
-                  let sectionHTML = `<div style="margin-bottom: 60px;">`;
-                  if (section.title) {
-                    sectionHTML += `<h3 class="project-section-title" style="text-align: left; margin-top: 0; margin-bottom: 16px;">${section.title}</h3>`;
-                  }
-                  if(section.logo) {
-                    sectionHTML += `<img src="${section.logo}" alt="${section.title || 'Section Logo'}" style="max-width: 120px; height: auto; margin-bottom: 24px;">`;
-                  }
-                  sectionHTML += `<div class="gallery-content">${section.items.map(createGalleryItemHTML).join('')}</div></div>`;
-                  galleryContent.innerHTML += sectionHTML;
-              });
-              galleryContent.querySelectorAll('.lightbox-trigger').forEach(img => {
-                  img.onclick = () => { lightboxImg.src = img.src; lightbox.style.display = 'flex'; };
-              });
-          } else if (subcategory) {
-              renderGallery(catData.subcategories[subcategory].items);
-          } else if (catData.items) {
-              renderGallery(catData.items);
-          } else if(catData.subcategories) {
-              const defaultSubKey = Object.keys(catData.subcategories)[0];
-              renderGallery(catData.subcategories[defaultSubKey].items);
-              container.querySelector(`.subcategory-btn[data-subcategory="${defaultSubKey}"]`).classList.add('active');
-          }
-      });
-      
-      container.querySelector('.category-btn').click();
+            galleryContent.className = 'gallery-content';
+            if (catData.sections) {
+                galleryContent.className = '';
+                galleryContent.innerHTML = '';
+                catData.sections.forEach(section => {
+                    let sectionHTML = `<div style="margin-bottom: 60px;">`;
+                    if (section.title) {
+                      sectionHTML += `<h3 class="project-section-title" style="text-align: left; margin-top: 0; margin-bottom: 16px;">${section.title}</h3>`;
+                    }
+                    if(section.logo) {
+                      sectionHTML += `<img src="${section.logo}" alt="${section.title || 'Section Logo'}" style="max-width: 120px; height: auto; margin-bottom: 24px;">`;
+                    }
+                    sectionHTML += `<div class="gallery-content">${section.items.map(createGalleryItemHTML).join('')}</div></div>`;
+                    galleryContent.innerHTML += sectionHTML;
+                });
+                galleryContent.querySelectorAll('.lightbox-trigger').forEach(img => {
+                    img.onclick = () => { lightboxImg.src = img.src; lightbox.style.display = 'flex'; };
+                });
+            } else if (subcategory) {
+                renderGallery(catData.subcategories[subcategory].items);
+            } else if (catData.items) {
+                renderGallery(catData.items);
+            } else if(catData.subcategories) {
+                const defaultSubKey = Object.keys(catData.subcategories)[0];
+                renderGallery(catData.subcategories[defaultSubKey].items);
+                container.querySelector(`.subcategory-btn[data-subcategory="${defaultSubKey}"]`).classList.add('active');
+            }
+        });
+        
+        container.querySelector('.category-btn').click();
+      }
   }
 
   slides.forEach(slide => {
@@ -930,7 +958,8 @@ section#work { padding-top: 15px; }
   });
   
   startAutoSlider();
-})();
+  showSection('work'); // Initial view
+});
 </script>
 </body>
 </html>
