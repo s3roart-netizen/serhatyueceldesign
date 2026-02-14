@@ -440,6 +440,15 @@ section#work { padding-top: 15px; }
 }
 @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -662,6 +671,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
       <p class="project-text">iNeed ist ein Marktplatz für Alltagsgegenstände in deiner Community. Leihen statt kaufen. Das Ziel: Weniger Konsum, mehr Miteinander. Die App ermöglicht es, unkompliziert Dinge zu finden und direkt mit Nachbarn zu verhandeln. So kommst du günstiger, schneller und oft gratis an das, was du wirklich brauchst.</p>
       
+      <h3 class="project-section-title">User Persona</h3>
+      <div class="ideate-slider-container">
+        <div class="ideate-slider">
+            <img src="https://i.imgur.com/QFykCtc.png" class="project-detail-img" alt="User Persona 1">
+            <img src="https://i.imgur.com/3qjGjtD.png" class="project-detail-img" alt="User Persona 2">
+        </div>
+        <button class="ideate-nav-btn prev">‹</button>
+        <button class="ideate-nav-btn next">›</button>
+      </div>
+      
       <h3 class="project-section-title">Sitemap</h3>
       <img src="https://i.imgur.com/voZ7CeV.jpeg" class="project-detail-img lightbox-trigger" alt="iNeed Sitemap">
       
@@ -753,6 +772,15 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function showSection(name) {
+    if (view.style.display !== 'none') {
+        view.querySelectorAll('.ideate-slider-container').forEach(sliderContainer => {
+            if (sliderContainer.dataset.autoSlideIntervalId) {
+                clearInterval(sliderContainer.dataset.autoSlideIntervalId);
+                delete sliderContainer.dataset.autoSlideIntervalId;
+            }
+        });
+    }
+
     hideAll();
     sections[name].style.display = 'block';
     const nav = document.getElementById('nav-' + (name === 'work' ? 'projects' : name));
@@ -789,28 +817,64 @@ window.addEventListener('DOMContentLoaded', () => {
         };
     });
     
-    const ideateContainer = view.querySelector('.ideate-slider-container');
-    if (ideateContainer) {
-        const slider = ideateContainer.querySelector('.ideate-slider');
-        const prevBtn = ideateContainer.querySelector('.prev');
-        const nextBtn = ideateContainer.querySelector('.next');
+    const allSliders = view.querySelectorAll('.ideate-slider-container');
+    allSliders.forEach(sliderContainer => {
+        if (sliderContainer.dataset.autoSlideIntervalId) {
+            clearInterval(sliderContainer.dataset.autoSlideIntervalId);
+        }
+
+        const slider = sliderContainer.querySelector('.ideate-slider');
+        const prevBtn = sliderContainer.querySelector('.prev');
+        const nextBtn = sliderContainer.querySelector('.next');
+        const slides = slider.querySelectorAll('.project-detail-img');
         
-        nextBtn.onclick = () => {
-            if (Math.abs(slider.scrollWidth - (slider.scrollLeft + slider.clientWidth)) < 1) {
+        if (slides.length <= 1) {
+            if(prevBtn) prevBtn.style.display = 'none';
+            if(nextBtn) nextBtn.style.display = 'none';
+            return;
+        }
+
+        const goToNext = () => {
+             if (Math.abs(slider.scrollWidth - (slider.scrollLeft + slider.clientWidth)) < 1) {
                 slider.scrollTo({ left: 0, behavior: 'smooth' });
             } else {
                 slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' });
             }
         };
+
+        const startAutoSlide = () => {
+            const intervalId = setInterval(goToNext, 5000);
+            sliderContainer.dataset.autoSlideIntervalId = intervalId;
+        };
         
+        const resetAutoSlide = () => {
+            clearInterval(sliderContainer.dataset.autoSlideIntervalId);
+            startAutoSlide();
+        };
+
+        nextBtn.onclick = () => {
+            goToNext();
+            resetAutoSlide();
+        };
+
         prevBtn.onclick = () => {
             if (slider.scrollLeft <= 0) {
                 slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' });
             } else {
                 slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' });
             }
+            resetAutoSlide();
         };
-    }
+
+        slider.onclick = (e) => {
+            if (e.target.tagName === 'IMG') {
+                nextBtn.onclick();
+            }
+        }
+        
+        startAutoSlide();
+    });
+
     window.scrollTo(0,0);
   }
 
